@@ -91,12 +91,22 @@ export default class HelloWorld extends React.Component {
 repository.register("hello-world", HelloWorld);
 ```
 
-## debug
+## debug()
 
-The repository has a `debug()` method. It will print out list you all registered widgets, and warnings to the console.
+The repository has a `debug()` method. It will print out the list of the registered **widgets** and **warnings** to the console.
 
 Warning types are:
 
 - `duplicate` - the same component is already registeredwith the same widget name
 - `overwrite` - you are registering an already registered widget, but with an other component
 - `not-found` - you mention an unregistered widget
+
+You can call this method whenever you want to. 
+
+You may register it globally and call it from the console:
+
+```js
+window.rwr = repository;
+```
+
+in the console: `rwr.debug()`
