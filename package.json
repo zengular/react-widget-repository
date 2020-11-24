@@ -1,6 +1,6 @@
 {
   "name": "react-widget-repository",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Makes it easy to work with react widgets",
   "main": "index.js",
   "scripts": {
