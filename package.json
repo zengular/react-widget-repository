@@ -1,0 +1,24 @@
+{
+  "name": "react-widget-repository",
+  "version": "1.0.1",
+  "description": "Makes it easy to work with react widgets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zengular/react-widget-repository.git"
+  },
+  "keywords": [
+    "react",
+    "widget",
+    "repository"
+  ],
+  "author": "Gergely Laborci",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zengular/react-widget-repository/issues"
+  },
+  "homepage": "https://github.com/zengular/react-widget-repository#readme"
+}
