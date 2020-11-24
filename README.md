@@ -34,7 +34,7 @@ It will render your component into the div, which has the `is="hello-world"` att
 
 ### Props
 
-Repository will pass all `data-attributes` as props to your component, including the tag's content as `innerHtml` to work with. Therefore you can pass compex data to the widget within innerHTML as JSON.
+Repository will pass all `data-attributes` as props to your component, including the tag's content as `innerHtml` to work with. Therefore you can pass complex data to the widget within innerHTML as JSON.
 
 ```json
 {
@@ -43,9 +43,9 @@ Repository will pass all `data-attributes` as props to your component, including
 }
 ```
 
-### Hide not-yet-rendered components
+### Hide not-yet-rendered widgets
 
-You can hide your not-yet-rendered componets, with css. Because the repository manager removes the `is` attribute from the widget tag, it's easy.
+You can hide your not-yet-rendered widgets, with css. Because the repository manager removes the `is` attribute from the widget tag, it's easy.
 
 ```css
 // hide every or specific widgets before rendering
@@ -55,7 +55,7 @@ You can hide your not-yet-rendered componets, with css. Because the repository m
 
 ## Turn on DOM observer
 
-You can initialize the repository with the observer. This way it listens to dom changes, and looks for new widgets added.
+You can initialize the repository with observer (just pass `true` to the run method, or call the `observe()` method). From this, it listens to DOM changes, and handles every dynamycally added widgets.
 
 ```js
 repository.run(true);
@@ -74,3 +74,29 @@ repository.register("hello-world", HelloWorld);
 repository.widget_attr = "widget";
 repository.run();
 ```
+
+## Self registering component
+
+You can create self registering components. You don't need to collect every component on every page to register manually.
+Just import what you need, and your components will do the rest. (don't forget to call the `repository.run()` method!)
+
+```js
+import React from "react"
+import repository from "react-widget-repository";
+
+export default class HelloWorld extends React.Component {
+	// ...
+}
+
+repository.register("hello-world", HelloWorld);
+```
+
+## debug
+
+The repository has a `debug()` method. It will print out list you all registered widgets, and warnings to the console.
+
+Warning types are:
+
+- `duplicate` - the same component is already registeredwith the same widget name
+- `overwrite` - you are registering an already registered widget, but with an other component
+- `not-found` - you mention an unregistered widget

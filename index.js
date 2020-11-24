@@ -9,9 +9,34 @@ class ReactWidgetRepository {
 		this.registry = {};
 		this.mutationObserver = null;
 		this.widget_attr = widget_attr;
+		this.messages = [];
+	}
+
+	debug(){
+		console.group('React Widget Repository')
+		if(this.messages.length){
+			this.messages.forEach(message=>console.warn(message));
+		}
+		let components = [];
+		for(let tag in this.registry){
+			components.push({
+				widget: tag,
+				component: this.registry[tag].name,
+				Component: this.registry[tag]
+			})
+		}
+		console.table(components, ["widget", "component"]);
+		console.groupEnd();
 	}
 
 	register(is, Component) {
+		if(typeof this.registry[is] !== "undefined"){
+			if(this.registry[is] === Component){
+				this.messages.push('[duplicate] "'+is+'" ('+Component.name+')');
+			}else{
+				this.messages.push('[overwrite] "'+is+'" ('+Component.name+' -> '+this.registry[is].name+')');
+			}
+		}
 		this.registry[is] = Component;
 	}
 
@@ -39,8 +64,10 @@ class ReactWidgetRepository {
 			if (typeof Component !== "undefined"){
 				let attributes = Object.assign({innerHtml: element.innerHTML}, element.dataset);
 				let component = React.createElement(Component, {...attributes});
-				ReactDOM.render(component, element);
 				element.removeAttribute(this.widget_attr)
+				ReactDOM.render(component, element);
+			}else{
+				this.messages.push('[not-found] "'+element.getAttribute(this.widget_attr)+'"');
 			}
 		});
 	}
